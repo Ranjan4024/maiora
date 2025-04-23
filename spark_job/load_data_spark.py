@@ -54,15 +54,28 @@ df_transformed = (
 df_transformed.write.mode("overwrite").format("parquet").save("output/sales_data_parquet")
 
 # Load to a database (e.g., MySQL)
-db_properties = {
-    "user": "admin",
-    "password": "pass***",
-    "driver": "com.mysql.cj.jdbc.Driver"
-}
 
-db_url = "jdbc:mysql://your_database_url:3306/SQLlite"
+
 
 # Assuming we get data on a daily basis
-df_transformed.write.mode("append").jdbc(url=db_url, table="sales_data", properties=db_properties)
+# df_transformed.write.mode("append").jdbc(url=db_url, table="sales_data", properties=db_properties)
+
+data = df_transformed.collect()
+# Loop through the collected data (VERY INEFFICIENT)
+for row in data:
+    # Access row elements using row attributes (e.g., row.OrderId, row.QuantityOrdered)
+    # ... Perform operations on each row ...
+
+    # Example: Inserting into SQLite within the loop (HIGHLY DISCOURAGED)
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO sales_data VALUES (?,?,?,?,?,?,?,?,?,?)", (row.OrderId, row.OrderItemId, row.QuantityOrdered, row.ItemPrice, row.PromotionDiscount, row.batch_id, row.region, row.date, row.total_sales, row.net_sale))
+        conn.commit()
+    except Exception as e:
+        print(f"Error inserting data: {e}")
+        conn.rollback()
+    finally:
+        conn.close()
 
 spark.stop()
