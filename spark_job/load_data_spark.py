@@ -47,6 +47,7 @@ db_properties = {
  "password": "pass***",
  "driver": "com.mysql.cj.jdbc.Driver"
 }
+
 db_url = "jdbc:mysql://your_database_url:3306/your_database_name"
 
 # i am assuming we getting data daily basis
