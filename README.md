@@ -13,4 +13,4 @@ flask --app flask_app/joke.py run
 ```
 
 ## TASK 1
-# i am not able to setup envirmnet due to not able to download files from share-point 
+# i am not able to setup envirmnet due to not able to download files from sharepoint 
