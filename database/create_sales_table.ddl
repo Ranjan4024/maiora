@@ -1,9 +1,12 @@
 CREATE TABLE sales_data (
-    id INTEGER PRIMARY KEY,
-    date TEXT,
-    product_id INTEGER,
-    quantity INTEGER,
-    price REAL,
-    total_sales REAL,
-    region TEXT
-)
+    OrderId VARCHAR(255) PRIMARY KEY,
+    OrderItemId VARCHAR(255),
+    QuantityOrdered INT,
+    ItemPrice DOUBLE,
+    PromotionDiscount DOUBLE,
+    batch_id INT,
+    region CHAR(1),
+    date DATE,
+    total_sales DOUBLE,
+    net_sale DOUBLE
+);
