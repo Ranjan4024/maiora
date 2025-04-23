@@ -14,3 +14,6 @@ flask --app flask_app/joke.py run
 
 ## TASK 1
 # i am not able to setup envirmnet due to not able to download files from sharepoint 
+```bash
+spark-submit --master local  ../spark_job/load_data_spark.py
+```
